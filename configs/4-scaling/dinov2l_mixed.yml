@@ -1,0 +1,22 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../3-mixed-candidates/dinov2s_mixed.yml"
+run_name: "DINOv2-L__mixed"
+
+wandb:
+  group: "DINOv2-L__mixed"
+  tags: ["scaling"]
+
+model:
+  vit:
+    aux_indices: [5, 11, 17]
+    weights: "https://dl.fbaipublicfiles.com/dinov2/dinov2_vitl14/dinov2_vitl14_reg4_pretrain.pth"
+
+    dinov2:
+      depth: 24
+      num_heads: 16
+      embed_dim: 1024

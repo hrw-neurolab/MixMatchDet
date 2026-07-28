@@ -1,0 +1,9 @@
+albumentationsx[headless]==2.0.16
+lightning==2.6.0
+pycocotools==2.0.11
+pyyaml==6.0.3
+scipy==1.17.0
+torch==2.10.0
+torchvision==0.25.0
+wandb==0.24.1
+xformers==0.0.34

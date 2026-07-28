@@ -1,0 +1,21 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../1-baseline/dinov2s_padded.yml"
+run_name: "DINOv2-S__packed"
+
+wandb:
+  group: "DINOv2-S__packed"
+  tags: ["pad-vs-pack"]
+
+model:
+  vit:
+    dinov2:
+      img_side_minmax: [800, 1333]
+
+training:
+  data:
+    image_size: "list"

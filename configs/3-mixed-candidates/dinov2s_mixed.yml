@@ -1,0 +1,28 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../2-pad-vs-pack/dinov2s_packed.yml"
+run_name: "DINOv2-S__mixed"
+
+wandb:
+  group: "DINOv2-S__mixed"
+  tags: ["mixed-candidates"]
+
+model:
+  det_tokens:
+    num: 150
+
+  patch_candidates:
+    topk: 150
+    target_strides: [14]
+
+training:
+  criterion:
+      matcher:
+        scale_aware_matching:
+          # This is the best config for dinov2 -- restricting extremes, mixing medium
+          allowed_patch: [true, true, false]
+          allowed_det: [false, true, true]

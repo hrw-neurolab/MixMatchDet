@@ -1,0 +1,16 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../1-baseline/yolos-s_padded.yml"
+run_name: "YOLOS-S__packed"
+
+wandb:
+  group: "YOLOS-S__packed"
+  tags: ["pad-vs-pack"]
+
+training:
+  data:
+    image_size: "list"

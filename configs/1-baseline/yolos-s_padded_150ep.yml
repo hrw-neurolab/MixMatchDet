@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "yolos-s_padded.yml"
+run_name: "YOLOS-S__padded_150ep"
+
+wandb:
+  group: "YOLOS-S__padded_150ep"
+
+trainer_kwargs:
+  max_epochs: 150
+
+training:
+  optimizer:
+    step_lr_milestones: null
+    cos_lr_min_ratio: 0.1

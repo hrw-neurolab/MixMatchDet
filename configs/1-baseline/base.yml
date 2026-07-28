@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../base.yml"
+
+wandb:
+  tags: ["baseline"]
+
+model:
+  det_tokens:
+    num: 300
+    pos: true
+
+training:
+  data:
+    image_size: "padded"

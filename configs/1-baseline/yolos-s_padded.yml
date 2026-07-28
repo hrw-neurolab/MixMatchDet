@@ -1,0 +1,30 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "base.yml"
+run_name: "YOLOS-S__padded"
+
+wandb:
+  group: "YOLOS-S__padded"
+
+model:
+  vit:
+    weights: "https://dl.fbaipublicfiles.com/deit/deit_small_patch16_224-cd65a155.pth"
+
+    yolos:
+      img_size: 224
+      patch_size: 16
+      embed_dim: 384
+      depth: 12
+      num_heads: 6
+      mlp_ratio: 4
+      qkv_bias: true
+      base_hw: [960, 1600]
+      mid_hw: null
+      attn_class: "MemEffAttention"
+
+  det_tokens:
+    pos: false

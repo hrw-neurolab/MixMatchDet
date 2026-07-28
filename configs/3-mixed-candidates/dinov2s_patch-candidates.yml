@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../2-pad-vs-pack/dinov2s_packed.yml"
+run_name: "DINOv2-S__patch-candidates"
+
+wandb:
+  group: "DINOv2-S__patch-candidates"
+  tags: ["mixed-candidates"]
+
+model:
+  det_tokens: null
+
+  patch_candidates:
+    topk: 300
+    target_strides: [14]

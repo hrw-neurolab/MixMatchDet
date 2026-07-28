@@ -1,0 +1,73 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+save_dir: "logs"
+seed: 42
+
+wandb:
+  project_name: "MixMatchDet"
+
+trainer_kwargs:
+  max_epochs: 20
+  gradient_clip_val: 0.1
+  accelerator: "gpu"
+  devices: [0, 1]
+  strategy: "ddp"
+  precision: "bf16-mixed"
+  benchmark: false
+
+model:
+  vit:
+    aux_indices: [5, 8]
+
+training:
+  data:
+    image_dir_train: "/mnt/kingston/fiftyone/coco-2017/train/data"
+    ann_file_train: "/mnt/kingston/fiftyone/coco-2017/train/labels.json"
+    image_dir_val: "/mnt/kingston/fiftyone/coco-2017/validation/data"
+    ann_file_val: "/mnt/kingston/fiftyone/coco-2017/validation/labels.json"
+    num_classes: 91
+    batch_size: 4
+    num_workers: 8
+
+  criterion:
+    matcher:
+      cost_class: 2.0
+      cost_bbox: 5.0
+      cost_giou: 2.0
+      focal_cost:
+        alpha: 0.25
+        gamma: 2.0
+    weight_dict:
+      loss_ce: 2.0
+      loss_bbox: 5.0
+      loss_giou: 2.0
+    focal_loss:
+      alpha: 0.25
+      gamma: 2.0
+    losses: ["labels", "boxes"]
+
+  optimizer:
+    optimizer: "adamw"
+    warmup_steps: 2000
+    step_lr_milestones: [18]
+    cos_lr_min_ratio: null
+    param_groups:
+      - regex: "^backbone\\..*(norm.*|bias|gamma)"
+        lr: 2.0e-5
+        weight_decay: 0.0
+
+      - regex: "^backbone\\..*"
+        lr: 2.0e-5
+        weight_decay: 1.0e-4
+
+      - regex: ".*(norm.*|bias)"
+        lr: 2.0e-4
+        weight_decay: 0.0
+
+      - regex: ".*"
+        lr: 2.0e-4
+        weight_decay: 1.0e-4

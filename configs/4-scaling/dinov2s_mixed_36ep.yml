@@ -1,0 +1,19 @@
+# ------------------------------------------------------------------------
+# MixMatchDet
+# Copyright (c) 2026 Hochschule Ruhr West
+# Licensed under the Apache License, Version 2.0 [See LICENSE for details]
+# ------------------------------------------------------------------------
+
+extends: "../3-mixed-candidates/dinov2s_mixed.yml"
+run_name: "DINOv2-S__mixed_36ep"
+
+wandb:
+  group: "DINOv2-S__mixed_36ep"
+  tags: ["scaling"]
+
+trainer_kwargs:
+  max_epochs: 36
+
+training:
+  optimizer:
+    step_lr_milestones: [33]
